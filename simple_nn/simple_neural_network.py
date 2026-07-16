@@ -1,9 +1,8 @@
-
 import torch #pytorch's core functionality
 import torch.nn as nn #components for building neural networks
 import torch.optim as optim #tools to train those models
 
-import helper_utils 
+import Pytorch.simple_nn.helper_utils as helper_utils
 
 #this line ensures that your results are reproducible an d consistent every time
 torch.manual_seed(42)
@@ -42,10 +41,10 @@ for epoch in range(500):
     
     #print loss every 50 epochs
     if (epoch+1) % 50 == 0:
-        print(f"Epoch {epoch + 1}: Loss = {loss.items()}")
+        print(f"Epoch {epoch + 1}: Loss = {loss.item()}")
         
 #plot_results will show original data points (actual deliveries), the line your model learned (its predictions), and how well they match
-helper_utils.plot_predictions(model, distances, times)
+helper_utils.plot_results(model, distances, times)
 
 distance_to_predict = 7.0 
 
@@ -97,4 +96,4 @@ with torch.no_grad():
 new_loss = loss_function(predictions, new_times)
 print(f"Loss on new, combined data: {new_loss.item():.2f}")
 
-helper_utils.plot_predictions(model, new_distances, new_times)
+helper_utils.plot_nonlinear_comparison(model, new_distances, new_times)
